@@ -11,3 +11,14 @@ var result = from person in people.AsParallel()
 where person.City == "Seattle"
 select person;
 ```
+
+This call of AsParallel requests that the query be paralleli?ed whether
+performance is improved or not, with the request that the query be executed
+on a maximum of four processors:
+```
+var result ? from person in people.AsParallel()
+.WithDegreeOfParallelism(4) // Set the maximum of four processors at the same time
+.WithExecutionMode(ParallelExecutionMode.ForceParallelism) //Force Paralelism
+ where person.City == "Seattle"
+select person
+```
